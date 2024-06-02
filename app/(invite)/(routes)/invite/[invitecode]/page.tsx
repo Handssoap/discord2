@@ -5,7 +5,7 @@ import { redirect } from "next/navigation"
 
 interface InviteCodePageProps {
     params: {
-        inviteCode: string;
+        invitecode: string;
     }
 }
 
@@ -13,17 +13,18 @@ interface InviteCodePageProps {
 const InviteCodePage = async ({
     params
 }: InviteCodePageProps) => {
+    try {
     const profile = await currentProfile();
 
     if(!profile){
         return redirectToSignIn();
     }
-    if(!params.inviteCode) {
+    if(!params.invitecode) {
         return redirect("/")
     }
     const existingServer = await db.server.findFirst({
         where: {
-            invitecode: params.inviteCode,
+            invitecode: params.invitecode,
             members: {
                 some: {
                     profileId: profile.id
@@ -37,7 +38,7 @@ const InviteCodePage = async ({
     }
     const server = await db.server.update({
         where: {
-            invitecode: params.inviteCode,
+            invitecode: params.invitecode,
         },
         data: {
             members: {
@@ -53,9 +54,11 @@ const InviteCodePage = async ({
         if (server) {
             return redirect(`/servers/${server.id}`)
         }
-    
-    return (
-        null
-      );
+        return null
+    } catch(error) {
+        console.error('An error occurred: ', error) // not too sure whats going on :(
+        return redirect('/')
+    }
 }
  
+export default InviteCodePage;

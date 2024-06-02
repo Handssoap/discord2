@@ -1,11 +1,11 @@
 import { Server } from "@prisma/client";
-import { boolean } from "zod";
 import { create } from "zustand";
 
-export type ModalType= "createServer" | "invite";
+export type ModalType= "createServer" | "invite" | "editServer" | "members";
 
 interface ModelData {
     server?: Server
+
 }
 interface ModalStore {
     type: ModalType | null
