@@ -1,6 +1,6 @@
 "use client";
 
-import { AlignVerticalJustifyEnd, X } from "lucide-react"
+import { AlignVerticalJustifyEnd, FileIcon, X } from "lucide-react"
 import Image from "next/image"
 import { UploadDropzone } from "@/lib/uploadthing";
 import "@uploadthing/react/styles.css";
@@ -32,6 +32,22 @@ export const FileUpload = ({
                     <X className="h-4 w-4" />
                 </button>
                 
+            </div>
+        )
+    }
+
+    if(value && fileType === "pdf") {
+        return (
+            <div className="flex relative items-center p-2 mt-2 bg-background/10 rounded-md">
+                <FileIcon className="h-10 w-10 fill-indigo-300 stroke-indigo-400"/>
+                <a href={value} target="_blank" rel="noopener noreferrer" className="ml-2 text-sm text-indigo-500 hover:underline">
+                    {value}
+                </a>
+                <button onClick={() => onChange("")}
+                className="bg-rose-500 twxt-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm hover:bg-red-700">
+                    <X className="h-4 w-4" />
+                </button>
+
             </div>
         )
     }
