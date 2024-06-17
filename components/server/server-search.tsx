@@ -24,10 +24,10 @@ export const ServerSearch = ({
     const router = useRouter(); 
     
     const params = useParams();
-    
+    if (!params) return null;
     const onClick = ({id, type}: {id: string; type: "channel" | "member"}) => {
         setOpen(false);
-        if (type === "member") {
+    if (type === "member") {
             return router.push(`/servers/${params.serverId}/conversations/${id}`)
     }
     if (type === "channel") {
