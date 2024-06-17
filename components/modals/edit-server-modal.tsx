@@ -54,7 +54,7 @@ export const EditServerModal = () => {
         form.setValue("name", server.name)
         form.setValue("imageUrl", server.imageUrl)
     }
-  }, [])
+  })
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {

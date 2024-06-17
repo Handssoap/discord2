@@ -94,7 +94,7 @@ export const ChatItem = ({
         };
         window.addEventListener("keydown", handleKeyDown)
         return() => window.removeEventListener("keydown", handleKeyDown)
-    }, [])
+    }, [content, form])
 
 
     useEffect(() => {   
