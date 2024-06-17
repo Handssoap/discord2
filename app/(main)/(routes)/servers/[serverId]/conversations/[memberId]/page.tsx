@@ -1,22 +1,28 @@
 import { ChatHeader } from "@/components/chat/chat-header";
 import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessages } from "@/components/chat/chat-messages";
+import { MediaRoom } from "@/components/media-room";
 import { getOrCreateConversation } from "@/lib/coversation";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { Fragment } from "react";
 
 interface MemberIdPageProps {
     params: {
         memberId: string
         serverId: string
+    },
+    searchParams: {
+        video?: boolean
     }
 }
 
 
 const MemberIdPage =async ({
-    params
+    params,
+    searchParams
 }: MemberIdPageProps) => {
     const profile = await currentProfile();
     if (!profile) {
@@ -53,6 +59,12 @@ const MemberIdPage =async ({
                 name={otherMember.profile.name}
                 serverId={params.serverId} 
                 type="conversation"/>
+                 {searchParams.video && (
+                <MediaRoom chatId={conversation.id}
+                video={true} audio={true}
+                />
+                 )}
+        {!searchParams.video && (<Fragment>
 
                 <ChatMessages
       member={currentMember}
@@ -74,6 +86,7 @@ const MemberIdPage =async ({
         conversationId: conversation.id
       }}
       />
+        </Fragment>)}
     </div>
     
     
