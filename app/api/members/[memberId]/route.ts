@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function DELETE(
     req: Request,
     { params }: { params: { memberId: string } }
-) {
+): Promise<any> {
     try {
         const profile = await currentProfile();
         const { searchParams } = new URL(req.url);  
@@ -49,7 +49,7 @@ export async function DELETE(
         return NextResponse.json(server);
     } catch (error) {    
         console.error("MEMBER_ID_DELETE_ERROR", error);
-        return { status: 500, body: { message: "Internal Server Error" } };
+        return new NextResponse("Internal Server Error" , { status: 500 });
     }
 }
 
