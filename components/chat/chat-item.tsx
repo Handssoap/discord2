@@ -84,7 +84,7 @@ export const ChatItem = ({
         }
     })
     useEffect(() => {
-        const handleKeyDown = (eveSnt: KeyboardEvent) => { 
+        const handleKeyDown = (event: KeyboardEvent) => { 
             if (event.key === "Escape" ) {
                 form.reset({
                     content: content
